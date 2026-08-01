@@ -5,15 +5,19 @@
 ```text
 ZP_00=CLOSED_PASS_WITH_CONTROLLED_FINDINGS
 ZP_01A=PASS_PENDING_MERGE
-ZP_01A_PUB_R1=IN_PROGRESS
-REPOSITORY_VISIBILITY_TARGET=PUBLIC
+ZP_01A_PUB_R1=PASS
+ZP_01B=PREVIEW_GATE_PENDING
+REPOSITORY_VISIBILITY=PUBLIC
 OPEN_SOURCE=false
 LICENSE=NONE
 PR_1_DRAFT=true
 RELEASE_1_CUSTOMER_PORTAL=true
 RELEASE_1_ADMIN_PANEL=true
 IMPLEMENTATION_COMMERCIAL_RULES=false
-VERCEL_CONNECTED=false
+VERCEL_PROJECT_PLANNED=zentra-platform
+VERCEL_GIT_INTEGRATION=false
+VERCEL_PRODUCTION_DEPLOYMENT=false
+CUSTOM_DOMAIN_CONNECTED=false
 EXTERNAL_PROVIDERS_CREATED=false
 PRODUCTION_TOUCHED=false
 ```
@@ -53,7 +57,7 @@ The current foundation includes:
 | System or control         | State                                      |
 | ------------------------- | ------------------------------------------ |
 | Production landing        | Separate and unchanged                     |
-| Platform deployment       | Not created                                |
+| Platform deployment       | Isolated manual Preview gate pending       |
 | Platform domain           | Not connected                              |
 | External providers        | Not selected or created                    |
 | Secrets                   | None required or tracked                   |
@@ -62,4 +66,4 @@ The current foundation includes:
 | Foundation Pull Request   | Draft required                             |
 | Private bootstrap archive | Retained privately; never canonical/public |
 
-Future feature, infrastructure, preview, or merge work requires separate authorization and passing controls.
+ZP-01B authorizes only the isolated manual Preview gate described by ADR-005. Future feature, production, domain, provider, transfer, or merge work requires separate authorization and passing controls.
