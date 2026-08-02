@@ -2,17 +2,27 @@
 
 ZENTRA Platform is the in-development foundation for ZENTRA's public site and future commerce, subscriptions, customer portal, and administration experiences.
 
-The current branch contains the first bilingual public visual shell and its engineering controls. Catalog, authentication, checkout, subscriptions, persistence, customer-facing workflows, administration workflows, and external-provider integrations are not yet implemented.
+The current branch contains the approved bilingual public visual shell and a
+provider-agnostic identity and authorization foundation. Login, activation,
+portal, and administration routes are non-functional architecture previews.
+Catalog, real authentication, checkout, subscriptions, persistence, live
+customer workflows, live administration workflows, and external-provider
+integrations are not implemented.
 
 ## Project status
 
 - `FOUNDATION_BASELINE=APPROVED_FOR_MAIN`
 - `ZP_01A_PUB_R1=PASS`
 - `ZP_01B_R1=PASS`
-- `ZP_02A=IMPLEMENTATION_IN_PROGRESS`
+- `ZP_02A=PASS`
 - `ZP_02A_PUBLIC_COPY=PROVISIONAL_PUBLIC_COPY`
-- `ZP_02A_PROTECTED_MANUAL_PREVIEW=PENDING`
-- `ZP_02A_VISUAL_APPROVAL=PENDING`
+- `ZP_02A_PROTECTED_MANUAL_PREVIEW=READY`
+- `ZP_02A_VISUAL_APPROVAL=PASS`
+- `ZP_03A=PROVIDER_AGNOSTIC_FOUNDATION_UNDER_REVIEW`
+- `IDENTITY_PROVIDER_CONNECTED=false`
+- `DATABASE_CONNECTED=false`
+- `REAL_AUTHENTICATION=false`
+- `REAL_DATA=false`
 - `REPOSITORY_VISIBILITY=PUBLIC`
 - `ISOLATED_VERCEL_PROJECT=true`
 - `VERCEL_GIT_INTEGRATION=false`
@@ -20,13 +30,18 @@ The current branch contains the first bilingual public visual shell and its engi
 - `CUSTOM_DOMAIN_CONNECTED=false`
 - `COMMERCIAL_PRODUCTION=false`
 
-The isolated Vercel project retains the validated neutral foundation baseline and its protected manual Preview. The new ZP-02A Preview has not yet been created. The project has no Git integration, commercial domain, environment variables, or external providers. Commercial production is not connected, and the existing production landing remains a separate system.
+The isolated Vercel project retains its validated protected manual Previews.
+It has no Git integration, commercial domain, project-configured environment
+variables, or external providers. Commercial production is not connected, and
+the existing production landing remains a separate system.
 
-This implementation-in-progress state does not imply visual approval, final editorial approval, commercial-production readiness, or a delivery date.
+ZP-02A visual approval does not imply final editorial approval,
+commercial-production readiness, or a delivery date. ZP-03A does not claim
+working authentication, customer access, staff operations, or live data.
 
 ## Public shell v1
 
-The PRE-preview shell provides:
+The approved public shell provides:
 
 - English and Spanish routes at `/en` and `/es`, with English as the default;
 - a root redirect from `/` to `/en` through `src/proxy.ts`;
@@ -41,7 +56,27 @@ The PRE-preview shell provides:
 
 All newly authored public wording is `PROVISIONAL_PUBLIC_COPY`. The shell publishes no canonical URL, sitemap, or JSON-LD. It implements no commerce, authentication, persistence, data capture, forms, provider integration, custom domain, or commercial-production behavior.
 
-The next gate is local validation, Pull Request CI, and one protected manual Preview with inherited Vercel Authentication and no Git integration. Visual approval remains pending. See [ADR-006](docs/adr/ADR-006-bilingual-public-shell.md) and [Public shell v1](docs/architecture/PUBLIC-SHELL-V1.md).
+See [ADR-006](docs/adr/ADR-006-bilingual-public-shell.md) and
+[Public shell v1](docs/architecture/PUBLIC-SHELL-V1.md).
+
+## Identity and authorization foundation
+
+ZP-03A defines users and customer accounts as separate concepts, many-to-many
+account memberships, provider-neutral identity links, staff and customer roles,
+typed capabilities, MFA assurance for staff, digest-only invitation and order
+claim state machines, safe audit events, and deny-by-default server-side policy.
+
+The identity provider authenticates but does not authorize. Application-owned
+roles and account scope are intended to live in PostgreSQL in a later phase;
+neither Firebase nor a database is connected here. Test fakes never enter the
+runtime graph.
+
+The bilingual login, activation, portal, admin, and access-denied routes accept
+no credentials, submit no form, read no session, call no API, and display no
+customer data. See
+[ADR-007](docs/adr/ADR-007-identity-and-authorization-foundation.md),
+[Identity and authorization v1](docs/architecture/IDENTITY-AUTHORIZATION-V1.md),
+and the [role/capability matrix](docs/architecture/ROLE-CAPABILITY-MATRIX.md).
 
 ## Technology
 
@@ -74,15 +109,20 @@ The repository uses a modular Next.js App Router structure:
 
 - `src/app` — routing, metadata, layouts, and application boundaries;
 - `src/components/public` — reusable public-shell presentation components;
+- `src/components/access` — non-functional access architecture-preview components;
 - `src/i18n` — supported locales, typed dictionaries, and dictionary loading;
 - `src/proxy.ts` — root-only redirect to the default locale;
-- `src/modules` — product modules introduced only after approval;
-- `src/server` — server-only application and infrastructure code;
+- `src/modules/identity` — provider-agnostic identity and account contracts;
+- `src/modules/authorization` — pure capability and policy contracts;
+- `src/server` — server-only enforcement boundaries;
 - `src/styles` — official tokens, shell primitives, sections, and responsive behavior;
 - `tests/e2e` — reproducible end-to-end smoke tests;
 - `docs/adr` and `docs/architecture` — architectural decisions and current state.
 
-The structure remains intentionally limited to the public shell. Commercial behavior and provider integrations are introduced only after their requirements and boundaries are approved.
+The structure remains intentionally limited to the public and access-preview
+shells plus provider-agnostic identity and authorization contracts. Commercial
+behavior, persistence, and provider integrations are introduced only after
+their requirements and boundaries are approved.
 
 ## Quality gates
 

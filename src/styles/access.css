@@ -1,0 +1,249 @@
+.access-shell {
+  min-height: 100svh;
+  background:
+    radial-gradient(circle at 85% 18%, rgb(184 160 122 / 10%), transparent 30rem),
+    var(--color-ivory);
+}
+
+.access-foundation-banner {
+  margin: 0;
+  padding: 0.8rem var(--shell-gutter);
+  border-bottom: 1px solid var(--color-line-light);
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.access-shell__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-color: var(--color-line-dark);
+}
+
+.access-shell__header {
+  min-height: 6rem;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.access-shell__brand,
+.access-links a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.access-shell__logo {
+  width: 8.5rem;
+  height: auto;
+}
+
+.access-shell__locales,
+.access-links,
+.access-roles ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.access-shell__locales a {
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  color: var(--color-gold-ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.access-shell__locales a:hover,
+.access-shell__locales a[aria-current="page"] {
+  border-color: var(--color-gold);
+  color: var(--color-black);
+}
+
+.access-shell__main {
+  display: grid;
+  min-height: calc(100svh - 12rem);
+  align-content: center;
+  padding-block: clamp(4rem, 9vw, 8rem);
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(3rem, 8vw, 8rem);
+}
+
+.access-shell__intro h1 {
+  max-width: 11ch;
+  margin: 1.25rem 0 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.65rem, 5.4vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.access-shell--admin .access-shell__intro h1 {
+  font-size: clamp(2.65rem, 4.6vw, 4.75rem);
+}
+.access-shell__lede {
+  margin: 1.75rem 0 0;
+  color: #4f4b44;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+}
+
+.access-shell__body,
+.access-card {
+  min-width: 0;
+}
+
+.access-links a {
+  border-bottom: 1px solid var(--color-gold);
+}
+
+.access-panel,
+.access-card {
+  border: 1px solid var(--color-line-dark);
+  background: rgb(246 242 234 / 82%);
+}
+
+.access-panel {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.access-field,
+.access-status {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.access-field label,
+.access-roles h2 {
+  color: var(--color-gold-ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.access-field input,
+.access-disabled-action {
+  width: 100%;
+  min-height: 3.5rem;
+  border: 1px solid var(--color-line-dark);
+  padding: 0.8rem 1rem;
+}
+
+.access-field input {
+  background: #eee8dc;
+}
+
+.access-field p,
+.access-status p,
+.access-card p {
+  margin: 0;
+  color: #5c574f;
+  font-size: 0.88rem;
+}
+
+.access-disabled-action {
+  margin-top: 1.5rem;
+  background: transparent;
+  color: #625d55;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.access-links {
+  gap: 1rem 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.access-links a {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.access-status__code {
+  overflow-wrap: anywhere;
+  color: var(--color-gold-ink);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  letter-spacing: 0.08em;
+}
+
+.access-card-grid {
+  display: grid;
+  padding: 0;
+  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+}
+
+.access-card {
+  padding: 1.4rem;
+}
+
+.access-card h2 {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.access-card p {
+  margin-top: 0.85rem;
+}
+
+.access-roles {
+  margin-top: 1.5rem;
+}
+
+.access-roles ul {
+  padding: 0;
+  margin: 0;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.access-roles li {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-line-dark);
+}
+
+@media (max-width: 60rem) {
+  .access-shell__main {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .access-shell__intro h1 {
+    max-width: 14ch;
+  }
+}
+
+@media (max-width: 40rem) {
+  .access-foundation-banner {
+    text-align: left;
+  }
+
+  .access-shell__main {
+    padding-block: 3.5rem;
+  }
+
+  .access-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
