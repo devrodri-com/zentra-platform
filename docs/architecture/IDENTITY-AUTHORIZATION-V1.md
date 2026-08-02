@@ -147,3 +147,13 @@ only after separate authorization. ZP-03C may implement PostgreSQL-backed
 repositories and migrations only after separate authorization. Both phases
 must preserve the contracts, account isolation, server-side enforcement,
 digest-only token storage, and audit restrictions defined here.
+
+## Review closure
+
+The architecture review approved the deny-by-default policy, cross-account
+isolation, provider-independent role authority, and the contractual staff MFA
+requirement. Test fakes remain outside runtime. The guest claim retains a
+uniform response, digest-only state, and idempotent completion. The bilingual
+shells represent neither live authentication nor live data. Firebase identity
+and PostgreSQL integration remain pending and are not authorized by this
+approval.

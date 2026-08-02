@@ -113,3 +113,21 @@ route is bilingual and non-indexable.
 
 Provider integration belongs to a separately authorized ZP-03B. Database and
 real application-data integration belong to a separately authorized ZP-03C.
+
+## Validation
+
+```text
+VALIDATION_STATUS=PASS
+ARCHITECTURE_REVIEW=PASS
+SECURITY_BASELINE=APPROVED
+DENY_BY_DEFAULT=PASS
+CROSS_ACCOUNT_ISOLATION=PASS
+STAFF_MFA_POLICY=PASS
+PROVIDER_ROLES_NOT_AUTHORITATIVE=PASS
+RAW_TOKEN_STORAGE=false
+FAKE_ADAPTERS_TEST_ONLY=PASS
+PROTECTED_MANUAL_PREVIEW=PASS
+RUNTIME_DIFF_SINCE_PREVIEW=false
+REAL_PROVIDER_CONNECTED=false
+REAL_DATA_CONNECTED=false
+```
