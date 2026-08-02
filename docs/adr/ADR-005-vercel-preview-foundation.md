@@ -20,6 +20,23 @@ EXTERNAL_PROVIDERS=false
 TRANSFER_BEFORE_COMMERCIAL_PRODUCTION=PLANNED
 ```
 
+## Validated result
+
+```text
+VALIDATION_STATUS=PASS
+CONTROLLED_TECHNICAL_BOOTSTRAP=READY
+MANUAL_PREVIEW=READY
+PREVIEW_TARGET_API_REPRESENTATION=null
+PREVIEW_PROTECTION=VERCEL_AUTHENTICATION
+PREVIEW_VISUAL_ACCEPTANCE=PASS
+CUSTOM_DOMAINS=0
+ENVIRONMENT_VARIABLES=0
+GIT_INTEGRATION=false
+LIVE_ZENTRA_PRODUCTION_TOUCHED=false
+```
+
+The validated technical bootstrap remains an isolated Vercel baseline. It is not and must not be converted, described, or reused as commercial production.
+
 ## Context
 
 The platform foundation requires an isolated Preview deployment before a future merge can be considered. The production landing and its domains remain separate and cannot be reused as platform infrastructure.

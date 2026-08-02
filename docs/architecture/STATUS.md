@@ -3,39 +3,36 @@
 ## Canonical state
 
 ```text
-ZP_00=CLOSED_PASS_WITH_CONTROLLED_FINDINGS
-ZP_01A=PASS_PENDING_MERGE
+ZP_00=PASS
+ZP_01A=APPROVED_FOR_MAIN
 ZP_01A_PUB_R1=PASS
-ZP_01B=STOPPED_PRODUCTION_TARGET_SAFE
-ZP_01B_R1=CONTROLLED_BOOTSTRAP_PENDING
+ZP_01B_R1=PASS
+PREVIEW_VISUAL_ACCEPTANCE=PASS
+FOUNDATION_MERGE_GATE=APPROVED
 REPOSITORY_VISIBILITY=PUBLIC
-OPEN_SOURCE=false
-LICENSE=NONE
-PR_1_DRAFT=true
-RELEASE_1_CUSTOMER_PORTAL=true
-RELEASE_1_ADMIN_PANEL=true
-IMPLEMENTATION_COMMERCIAL_RULES=false
 VERCEL_PROJECT=zentra-platform
 VERCEL_GIT_INTEGRATION=false
+VERCEL_AUTOMATIC_DEPLOYMENTS=false
+VERCEL_TECHNICAL_BOOTSTRAP=READY
+VERCEL_PROTECTED_PREVIEW=READY
 CUSTOM_DOMAIN_CONNECTED=false
 EXTERNAL_PROVIDERS_CREATED=false
 COMMERCIAL_PRODUCTION=false
 PRODUCTION_DOMAIN_CUTOVER=false
+NEXT_PHASE=ZP_02_AFTER_MAIN_VERIFICATION
 ```
 
 ## Interpretation
 
-The repository contains a greenfield foundation with clean public history. Public visibility is for portfolio and technical transparency and does not make the repository open source.
+The repository contains an approved greenfield foundation with clean public history. Public visibility is for portfolio and technical transparency and does not make the repository open source.
 
-`ZP_01B=STOPPED_PRODUCTION_TARGET_SAFE` records the previous controlled stop: Vercel classified the first deployment as a technical Production deployment, and it was removed without affecting the production landing or any domain.
+ZP-01B-R1 validated one controlled technical Production bootstrap and one protected manual Preview in the isolated Vercel project. Both contain the same neutral, non-indexable foundation. The technical target does not represent commercial production, a launch, or a domain cutover.
 
-`ZP_01B_R1=CONTROLLED_BOOTSTRAP_PENDING` authorizes exactly one controlled technical Production bootstrap followed by one distinct manual Preview. The technical target does not represent commercial production, a launch, or a domain cutover.
+The approved merge gate covers only the reviewed foundation. Customer, administration, commerce, authentication, persistence, provider, domain, and commercial-production work remain unimplemented and require their own authorization.
 
-`RELEASE_1_CUSTOMER_PORTAL=true` and `RELEASE_1_ADMIN_PANEL=true` record planned scope only. They do not mean those areas are implemented.
+The approved foundation includes:
 
-The current foundation includes:
-
-- an isolated foundation branch and Draft Pull Request;
+- a minimal public-source history merged only through protected Pull Request controls;
 - a minimal non-indexable Next.js scaffold;
 - strict TypeScript;
 - a reproducible toolchain;
@@ -59,17 +56,17 @@ The current foundation includes:
 
 ## Operational boundaries
 
-| System or control         | State                                      |
-| ------------------------- | ------------------------------------------ |
-| Production landing        | Separate and unchanged                     |
-| Platform deployment       | Controlled bootstrap and Preview pending   |
-| Platform domain           | Generated Vercel domain only; no custom    |
-| External providers        | Not selected or created                    |
-| Secrets                   | None required or tracked                   |
-| Commercial production     | Not authorized or touched                  |
-| Production domain cutover | Not authorized or performed                |
-| Merge to `main`           | Not authorized in this phase               |
-| Foundation Pull Request   | Draft required                             |
-| Private bootstrap archive | Retained privately; never canonical/public |
+| System or control         | State                                           |
+| ------------------------- | ----------------------------------------------- |
+| Production landing        | Separate and unchanged                          |
+| Platform deployment       | Technical bootstrap and protected Preview READY |
+| Platform domain           | Generated Vercel domain only; no custom         |
+| External providers        | Not selected or created                         |
+| Secrets                   | None required or tracked                        |
+| Commercial production     | Not authorized or touched                       |
+| Production domain cutover | Not authorized or performed                     |
+| Merge to `main`           | Approved through protected squash-only PR       |
+| Foundation merge gate     | Approved after required validation              |
+| Private bootstrap archive | Retained privately; never canonical/public      |
 
-ZP-01B-R1 authorizes only the controlled technical bootstrap and isolated Preview gate described by ADR-005. It does not authorize commercial production, a custom domain, a provider, transfer, cutover, or merge. Future work requires separate authorization and passing controls.
+The approved foundation baseline preserves the isolation described by ADR-005. It does not authorize commercial production, a custom domain, a provider, transfer, or cutover. ZP-02 may begin only after `main` and all post-merge controls are verified separately.
