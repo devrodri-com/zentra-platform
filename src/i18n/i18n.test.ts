@@ -70,4 +70,21 @@ describe("localized dictionaries", () => {
       "Diseño olfativo premium para espacios comerciales y residenciales.",
     );
   });
+
+  it("localizes customer and staff role labels without changing their key shape", () => {
+    expect(en.access.roles.customer).toEqual({
+      owner: "Owner",
+      admin: "Administrator",
+      member: "Member",
+      viewer: "Viewer",
+    });
+    expect(es.access.roles.customer).toEqual({
+      owner: "Propietario",
+      admin: "Administrador",
+      member: "Miembro",
+      viewer: "Solo lectura",
+    });
+    expect(en.access.roles.staff.technicalAdmin).toBe("Technical administrator");
+    expect(es.access.roles.staff.technicalAdmin).toBe("Administrador técnico");
+  });
 });

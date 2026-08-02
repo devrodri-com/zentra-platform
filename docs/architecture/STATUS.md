@@ -31,6 +31,18 @@ ZP_02A_R1_PREVIEW_TARGET=preview_or_null
 ZP_02A_R1_PREVIEW_PROTECTION=VERCEL_AUTHENTICATION
 ZP_02A_R1_PREVIEW_HTTP=PASS
 ZP_02A_R1_RUNTIME_DIFF_SINCE_PREVIEW=false
+ZP_03A=IMPLEMENTATION_VALIDATED_PREVIEW_PENDING
+IDENTITY_AUTHORIZATION_FOUNDATION=PROVIDER_AGNOSTIC
+IDENTITY_PROVIDER_DIRECTION=FIREBASE_IDENTITY_PLATFORM
+IDENTITY_PROVIDER_CONNECTED=false
+AUTHORIZATION_SOURCE_DIRECTION=APPLICATION_POSTGRESQL
+DATABASE_CONNECTED=false
+REAL_AUTHENTICATION=false
+REAL_DATA=false
+DENY_BY_DEFAULT=true
+SERVER_SIDE_AUTHORIZATION_REQUIRED=true
+STAFF_MFA_REQUIRED=true
+FAKE_ADAPTERS_RUNTIME=false
 REPOSITORY_VISIBILITY=PUBLIC
 VERCEL_PROJECT=zentra-platform
 VERCEL_GIT_INTEGRATION=false
@@ -42,6 +54,7 @@ EXTERNAL_PROVIDERS_CREATED=false
 COMMERCIAL_PRODUCTION=false
 PRODUCTION_DOMAIN_CUTOVER=false
 NEXT_PHASE=NOT_STARTED
+NEXT_GATE=ZP_03A_PROTECTED_PREVIEW
 ```
 
 ## Interpretation
@@ -83,21 +96,31 @@ foundation baseline. The explicit `ZP_02A_VISUAL_ACCEPTANCE=PASS` value records
 the subsequently approved public-shell Preview; both approvals remain scoped
 to their respective reviewed artifacts.
 
+ZP-03A adds provider-agnostic contracts for users, customer accounts,
+many-to-many memberships, identity links, staff roles, invitations, guest order
+claims, audit events, and deny-by-default server-side authorization. It also
+adds bilingual non-functional architecture-preview shells for login,
+activation, portal, administration, and access denial. No identity provider,
+database, real authentication, session, email delivery, or live data is
+connected.
+
 ## Functional state
 
-| Area                     | State                                |
-| ------------------------ | ------------------------------------ |
-| Non-indexable web shell  | Protected Preview visually approved  |
-| Supported locales        | English and Spanish; English default |
-| Commercial behavior      | Not implemented                      |
-| Authentication           | Not implemented                      |
-| Customer portal          | Planned; not implemented             |
-| Administration           | Planned; not implemented             |
-| Subscriptions            | Not implemented                      |
-| Persistence              | Not implemented                      |
-| External providers       | Not connected                        |
-| Approved web derivatives | Six integrated for ZP-02A            |
-| Canonical brand masters  | Not tracked                          |
+| Area                     | State                                 |
+| ------------------------ | ------------------------------------- |
+| Non-indexable web shell  | Protected Preview visually approved   |
+| Supported locales        | English and Spanish; English default  |
+| Commercial behavior      | Not implemented                       |
+| Authentication           | Not implemented                       |
+| Customer portal          | Planned; not implemented              |
+| Administration           | Planned; not implemented              |
+| Identity contracts       | Implemented; provider not connected   |
+| Authorization policy     | Implemented; deny-by-default contract |
+| Subscriptions            | Not implemented                       |
+| Persistence              | Not implemented                       |
+| External providers       | Not connected                         |
+| Approved web derivatives | Six integrated for ZP-02A             |
+| Canonical brand masters  | Not tracked                           |
 
 ## Operational boundaries
 
@@ -113,6 +136,7 @@ to their respective reviewed artifacts.
 | Foundation merge to `main` | Approved through protected squash-only PR       |
 | Foundation merge gate      | Approved after required validation              |
 | ZP-02A branch              | R1 Preview and public-shell merge gate approved |
+| ZP-03A branch              | Implementation validated; Preview pending       |
 | Private bootstrap archive  | Retained privately; never canonical/public      |
 
 The approved foundation baseline preserves the isolation described by ADR-005.

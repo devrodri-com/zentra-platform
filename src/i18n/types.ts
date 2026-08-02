@@ -6,6 +6,70 @@ export type SolutionItem = {
   readonly cta?: string;
 };
 
+export type AccessDictionary = {
+  readonly banner: string;
+  readonly common: {
+    readonly eyebrow: string;
+    readonly home: string;
+    readonly languageLabel: string;
+    readonly roleVocabulary: string;
+  };
+  readonly roles: {
+    readonly customer: {
+      readonly owner: string;
+      readonly admin: string;
+      readonly member: string;
+      readonly viewer: string;
+    };
+    readonly staff: {
+      readonly businessOwner: string;
+      readonly operationsAdmin: string;
+      readonly technicalAdmin: string;
+    };
+  };
+  readonly login: {
+    readonly metadataTitle: string;
+    readonly title: string;
+    readonly body: string;
+    readonly emailLabel: string;
+    readonly emailHint: string;
+    readonly action: string;
+    readonly activationLink: string;
+    readonly homeLink: string;
+  };
+  readonly activation: {
+    readonly metadataTitle: string;
+    readonly title: string;
+    readonly body: string;
+    readonly state: string;
+    readonly stateDetail: string;
+    readonly loginLink: string;
+    readonly homeLink: string;
+  };
+  readonly portal: {
+    readonly metadataTitle: string;
+    readonly title: string;
+    readonly body: string;
+    readonly emptyState: string;
+    readonly sections: readonly [string, string, string, string, string, string, string, string];
+  };
+  readonly admin: {
+    readonly metadataTitle: string;
+    readonly title: string;
+    readonly body: string;
+    readonly emptyState: string;
+    readonly sections: readonly [string, string, string, string, string, string, string, string];
+  };
+  readonly accessDenied: {
+    readonly metadataTitle: string;
+    readonly title: string;
+    readonly body: string;
+    readonly state: string;
+    readonly homeLink: string;
+    readonly loginLink: string;
+  };
+};
+
 export type Dictionary = {
   readonly metadata: {
     readonly title: string;
@@ -67,4 +131,5 @@ export type Dictionary = {
     readonly body: string;
     readonly cta: string;
   };
+  readonly access: AccessDictionary;
 };
