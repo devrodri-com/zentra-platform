@@ -6,14 +6,19 @@ The current repository contains the platform scaffold and its engineering contro
 
 ## Project status
 
-- Foundation: `ZP_01A=PASS_PENDING_MERGE`
-- Public clean rebootstrap: `ZP_01A_PUB_R1=IN_PROGRESS`
-- Foundation Pull Request: Draft and unmerged
-- Deployment and production: not connected
-- External providers: not connected
-- Search indexing: blocked in the foundation application
+- `FOUNDATION_BASELINE=APPROVED_FOR_MAIN`
+- `ZP_01A_PUB_R1=PASS`
+- `ZP_01B_R1=PASS`
+- `REPOSITORY_VISIBILITY=PUBLIC`
+- `ISOLATED_VERCEL_PROJECT=true`
+- `VERCEL_GIT_INTEGRATION=false`
+- `PROTECTED_MANUAL_PREVIEW=READY`
+- `CUSTOM_DOMAIN_CONNECTED=false`
+- `COMMERCIAL_PRODUCTION=false`
 
-This status does not imply production readiness or a delivery date.
+The Vercel project is isolated and contains only a neutral technical foundation and a protected manual Preview. It has no Git integration, commercial domain, environment variables, or external providers. Commercial production is not connected, and the existing production landing remains a separate system.
+
+This approved foundation baseline does not imply commercial-production readiness or a delivery date.
 
 ## Technology
 
