@@ -31,7 +31,14 @@ ZP_02A_R1_PREVIEW_TARGET=preview_or_null
 ZP_02A_R1_PREVIEW_PROTECTION=VERCEL_AUTHENTICATION
 ZP_02A_R1_PREVIEW_HTTP=PASS
 ZP_02A_R1_RUNTIME_DIFF_SINCE_PREVIEW=false
-ZP_03A=IMPLEMENTATION_VALIDATED_PREVIEW_PENDING
+ZP_03A=PREVIEW_READY_AWAITING_ARCHITECTURE_REVIEW
+ZP_03A_PROTECTED_MANUAL_PREVIEW=READY
+ZP_03A_PREVIEW_DEPLOYMENT_COMMIT=4162b7a8bd9072f4b90db70ec6b4abf832e84f0c
+ZP_03A_PREVIEW_TARGET=preview_or_null
+ZP_03A_PREVIEW_PROTECTION=VERCEL_AUTHENTICATION
+ZP_03A_PREVIEW_HTTP=PASS
+ZP_03A_PREVIEW_NOINDEX=PASS
+ZP_03A_RUNTIME_DIFF_SINCE_PREVIEW=false
 IDENTITY_AUTHORIZATION_FOUNDATION=PROVIDER_AGNOSTIC
 IDENTITY_PROVIDER_DIRECTION=FIREBASE_IDENTITY_PLATFORM
 IDENTITY_PROVIDER_CONNECTED=false
@@ -54,7 +61,7 @@ EXTERNAL_PROVIDERS_CREATED=false
 COMMERCIAL_PRODUCTION=false
 PRODUCTION_DOMAIN_CUTOVER=false
 NEXT_PHASE=NOT_STARTED
-NEXT_GATE=ZP_03A_PROTECTED_PREVIEW
+NEXT_GATE=ZP_03A_ARCHITECTURE_REVIEW
 ```
 
 ## Interpretation
@@ -104,6 +111,13 @@ activation, portal, administration, and access denial. No identity provider,
 database, real authentication, session, email delivery, or live data is
 connected.
 
+ZP-03A has exactly one protected manual Preview for implementation commit
+`4162b7a8bd9072f4b90db70ec6b4abf832e84f0c`. Its ten bilingual access-preview
+routes, root redirect, public localized routes, robots policy, and known
+invalid-locale 404 passed authenticated HTTP verification. Unauthenticated
+requests redirect to Vercel Authentication. The post-Preview documentation
+commit changes no runtime file.
+
 ## Functional state
 
 | Area                     | State                                 |
@@ -127,7 +141,7 @@ connected.
 | System or control          | State                                           |
 | -------------------------- | ----------------------------------------------- |
 | Production landing         | Separate and unchanged                          |
-| Platform deployment        | Foundation and ZP-02A protected Previews READY  |
+| Platform deployment        | Foundation, ZP-02A, and ZP-03A Previews READY   |
 | Platform domain            | Generated Vercel domain only; no custom         |
 | External providers         | Not selected or created                         |
 | Secrets                    | None required or tracked                        |
@@ -136,7 +150,7 @@ connected.
 | Foundation merge to `main` | Approved through protected squash-only PR       |
 | Foundation merge gate      | Approved after required validation              |
 | ZP-02A branch              | R1 Preview and public-shell merge gate approved |
-| ZP-03A branch              | Implementation validated; Preview pending       |
+| ZP-03A branch              | Preview ready; architecture review pending      |
 | Private bootstrap archive  | Retained privately; never canonical/public      |
 
 The approved foundation baseline preserves the isolation described by ADR-005.
