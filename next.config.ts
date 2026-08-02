@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {/* config options here */};
+const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/**": ["./public/brand/zentra-logo-gold.png"],
+  },
+};
 
 export default nextConfig;

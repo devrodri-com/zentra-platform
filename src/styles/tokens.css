@@ -1,0 +1,27 @@
+:root {
+  --color-black: #1d1d1b;
+  --color-gold: #b8a07a;
+  --color-gold-ink: #756244;
+  --color-focus: #8d744d;
+  --color-ivory: #f6f2ea;
+  --color-champagne: #e8dfcc;
+  --color-stone: #a89f92;
+  --color-black-soft: #272724;
+  --color-ivory-muted: #ded8cc;
+  --color-line-dark: rgb(29 29 27 / 16%);
+  --color-line-light: rgb(246 242 234 / 18%);
+  --color-gold-soft: rgb(184 160 122 / 20%);
+  --shell-width: 90rem;
+  --shell-gutter: clamp(1.25rem, 4.5vw, 5.5rem);
+  --section-space: clamp(6.5rem, 12vw, 12rem);
+  --transition-fast: 180ms ease;
+  --transition-slow: 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-brand-black: var(--color-black);
+  --color-brand-gold: var(--color-gold);
+  --color-brand-ivory: var(--color-ivory);
+  --color-brand-champagne: var(--color-champagne);
+  --color-brand-stone: var(--color-stone);
+}
