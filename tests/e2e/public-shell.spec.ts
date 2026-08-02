@@ -22,17 +22,25 @@ const localizedExpectations = {
 } as const;
 
 const viewports = [
-  { name: "mobile", width: 390, height: 844 },
-  { name: "desktop", width: 1440, height: 900 },
+  { name: "mobile", width: 390, height: 844, h1Min: 36, h1Max: 42, linesMin: 4, linesMax: 6 },
+  {
+    name: "desktop",
+    width: 1440,
+    height: 900,
+    h1Min: 60,
+    h1Max: 68,
+    linesMin: 3,
+    linesMax: 5,
+  },
 ] as const;
 
 const responsiveViewports = [
-  { name: "small-mobile", width: 320, height: 720 },
-  { name: "mobile", width: 390, height: 844 },
-  { name: "tablet-portrait", width: 768, height: 1024 },
-  { name: "tablet-landscape", width: 1024, height: 768 },
-  { name: "desktop", width: 1440, height: 900 },
-  { name: "wide-desktop", width: 1728, height: 1117 },
+  { name: "small-mobile", width: 320, height: 720, h1Min: 34, h1Max: 38 },
+  { name: "mobile", width: 390, height: 844, h1Min: 36, h1Max: 42 },
+  { name: "tablet-portrait", width: 768, height: 1024, h1Min: 44, h1Max: 54 },
+  { name: "tablet-landscape", width: 1024, height: 768, h1Min: 52, h1Max: 62 },
+  { name: "desktop", width: 1440, height: 900, h1Min: 60, h1Max: 68 },
+  { name: "wide-desktop", width: 1728, height: 1117, h1Min: 64, h1Max: 72 },
 ] as const;
 
 test("redirects the root route to the default English locale", async ({ page }) => {
@@ -97,6 +105,57 @@ for (const [locale, expected] of Object.entries(localizedExpectations)) {
       await expect(page).toHaveTitle(expected.title);
       await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(expected.h1);
+      const heroTitleMetrics = await page.locator(".hero h1").evaluate((element) => {
+        const box = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        const lineTops: number[] = [];
+        for (const lineBox of range.getClientRects()) {
+          if (!lineTops.some((top) => Math.abs(top - lineBox.top) < 1)) {
+            lineTops.push(lineBox.top);
+          }
+        }
+
+        const zoomChain: string[] = [];
+        let current: Element | null = element;
+        while (current) {
+          zoomChain.push(getComputedStyle(current).zoom);
+          if (current.matches(".hero")) {
+            break;
+          }
+          current = current.parentElement;
+        }
+
+        return {
+          bottom: box.bottom,
+          fontSize: Number.parseFloat(style.fontSize),
+          lineCount: lineTops.length,
+          lineHeightRatio: Number.parseFloat(style.lineHeight) / Number.parseFloat(style.fontSize),
+          top: box.top,
+          transform: style.transform,
+          zoomChain,
+        };
+      });
+      expect(heroTitleMetrics.fontSize).toBeGreaterThanOrEqual(viewport.h1Min);
+      expect(heroTitleMetrics.fontSize).toBeLessThanOrEqual(viewport.h1Max);
+      expect(heroTitleMetrics.lineHeightRatio).toBeGreaterThanOrEqual(0.98);
+      expect(heroTitleMetrics.lineHeightRatio).toBeLessThanOrEqual(1.06);
+      expect(heroTitleMetrics.lineCount).toBeGreaterThanOrEqual(viewport.linesMin);
+      expect(heroTitleMetrics.lineCount).toBeLessThanOrEqual(viewport.linesMax);
+      expect(heroTitleMetrics.top).toBeGreaterThanOrEqual(0);
+      expect(heroTitleMetrics.bottom).toBeLessThanOrEqual(viewport.height);
+      expect(heroTitleMetrics.transform).toBe("none");
+      expect(heroTitleMetrics.zoomChain.every((zoom) => zoom === "1" || zoom === "normal")).toBe(
+        true,
+      );
+      const heroActionsComplete = await page.locator(".hero__actions a").evaluateAll((links) =>
+        links.every((link) => {
+          const box = link.getBoundingClientRect();
+          return box.top >= 0 && box.bottom <= window.innerHeight;
+        }),
+      );
+      expect(heroActionsComplete).toBe(true);
       const headingLevels = await page
         .locator("h1, h2, h3, h4, h5, h6")
         .evaluateAll((headings) => headings.map((heading) => Number(heading.tagName.slice(1))));
@@ -180,6 +239,28 @@ test("stays usable across the complete responsive matrix", async ({ page }) => {
     expect(response?.status(), viewport.name).toBe(200);
     await expect(page.getByRole("heading", { level: 1 }), viewport.name).toBeVisible();
     await expect(page.getByRole("banner"), viewport.name).toBeVisible();
+    const heroTitleFontSize = await page
+      .locator(".hero h1")
+      .evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
+    expect(heroTitleFontSize, `${viewport.name} H1 minimum`).toBeGreaterThanOrEqual(viewport.h1Min);
+    expect(heroTitleFontSize, `${viewport.name} H1 maximum`).toBeLessThanOrEqual(viewport.h1Max);
+    const heroAboveTheFold = await page.evaluate(() => {
+      const title = document.querySelector(".hero h1");
+      const actions = [...document.querySelectorAll(".hero__actions a")];
+      if (!title || actions.length !== 2) {
+        return false;
+      }
+      const titleBox = title.getBoundingClientRect();
+      return (
+        titleBox.top >= 0 &&
+        titleBox.bottom <= window.innerHeight &&
+        actions.every((action) => {
+          const box = action.getBoundingClientRect();
+          return box.top >= 0 && box.bottom <= window.innerHeight;
+        })
+      );
+    });
+    expect(heroAboveTheFold, `${viewport.name} hero content is complete`).toBe(true);
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
       `${viewport.name} has no horizontal overflow`,

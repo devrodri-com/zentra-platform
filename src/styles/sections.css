@@ -37,13 +37,13 @@
 }
 
 .hero h1 {
-  max-width: 15ch;
+  max-width: 17ch;
   margin: 0;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(3rem, 6.4vw, 7.1rem);
+  font-size: clamp(2.25rem, calc(1.7955rem + 2.27273vw), 4.25rem);
   font-weight: 400;
   letter-spacing: -0.035em;
-  line-height: 0.99;
+  line-height: 1.02;
   text-wrap: balance;
 }
 
@@ -51,7 +51,7 @@
   display: flex;
   align-items: center;
   gap: clamp(1.4rem, 3vw, 3rem);
-  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  margin-top: clamp(2rem, 3vw, 3rem);
 }
 
 .hero__isotipo {
