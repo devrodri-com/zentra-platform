@@ -1,11 +1,14 @@
 # ADR-006: Bilingual public shell
 
-- Status: Accepted for implementation; Preview pending
+- Status: Accepted; validated and visually approved
 - Date: 2026-08-01
-- Scope: ZP-02A PRE-preview
+- Scope: ZP-02A
 
 ```text
-ZP_02A=IMPLEMENTATION_IN_PROGRESS
+ZP_02A=PASS
+VALIDATION_STATUS=PASS
+VISUAL_ACCEPTANCE=PASS
+HERO_REFINEMENT=PASS
 SUPPORTED_LOCALES=en,es
 DEFAULT_LOCALE=en
 ROOT_REDIRECT=/ -> /en
@@ -21,9 +24,10 @@ DATA_PERSISTENCE=false
 FORMS=false
 EXTERNAL_PROVIDERS=false
 CUSTOM_DOMAIN=false
-ZP_02A_PROTECTED_MANUAL_PREVIEW=PENDING
-VERCEL_GIT_INTEGRATION=false
-VISUAL_APPROVAL=PENDING
+PROTECTED_MANUAL_PREVIEW=PASS
+RUNTIME_DIFF_SINCE_PREVIEW=false
+GIT_INTEGRATION=false
+COMMERCIAL_PRODUCTION=false
 ```
 
 ## Context
@@ -119,9 +123,9 @@ analytics, contact form, provider SDK, environment-variable dependency,
 custom domain, or commercial-production cutover. Direct `mailto:` links do not
 submit or retain data and do not create a provider integration.
 
-After the exact implementation commit passes local and Pull Request checks,
-one separately authorized manual Preview may be created in the isolated Vercel
-project. It must:
+After the exact implementation commit passed local and Pull Request checks,
+one separately authorized manual Preview was created in the isolated Vercel
+project. It remains required to:
 
 - target Preview and never create a new Production deployment;
 - remain protected by inherited Vercel Authentication with Standard
@@ -130,16 +134,27 @@ project. It must:
 - contain no environment variables or external providers;
 - keep Vercel Git integration and automatic Git deployments disabled.
 
-No Preview URL is part of this PRE-preview decision record. The existing
-foundation bootstrap and protected foundation Preview remain the prior
-baseline governed by ADR-005.
+No Preview URL is part of this public decision record. The existing foundation
+bootstrap and protected foundation Preview remain the prior baseline governed
+by ADR-005.
+
+## Validation and visual acceptance
+
+Rodrigo approved the refined protected Preview. The accepted result covers the
+bilingual shell, visual direction, responsive behavior, and the shared fluid
+English/Spanish hero-title scale. No runtime file changed after the approved
+Preview; subsequent changes only record its validation and approval.
+
+Public copy remains provisional. Products, catalog, commerce, customer portal,
+and administration are outside this decision. The inherited Node 24 patch
+selection warning and the raw unsupported-locale error document's missing
+localized `html[lang]` remain non-blocking because install, build, audit, and
+the route's noindex 404 behavior pass.
 
 ## Pending decisions and approvals
 
-- Final English and Spanish editorial approval remains pending.
-- Visual approval across the required desktop, tablet, landscape, and mobile
-  viewports remains pending until local evidence and the protected Preview are
-  reviewed.
+- Final English and Spanish editorial approval remains pending; visual approval
+  of the current provisional bilingual shell has passed.
 - Product names, scent names, catalog structure, pricing, subscriptions,
   guarantees, geographic coverage, and commercial policies remain undefined.
 - Authentication, data, payments, email delivery, analytics, storage,

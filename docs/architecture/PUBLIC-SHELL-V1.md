@@ -4,17 +4,18 @@
 
 ```text
 PHASE=ZP-02A
-ZP_02A=IMPLEMENTATION_IN_PROGRESS
-RELEASE_STATE=PREVIEW_PENDING
+ZP_02A=PASS
+RELEASE_STATE=VISUALLY_APPROVED_FOR_MERGE
 PUBLIC_COPY=PROVISIONAL_PUBLIC_COPY
-VISUAL_APPROVAL=PENDING
+VISUAL_APPROVAL=PASS
 SUPPORTED_LOCALES=en,es
 DEFAULT_LOCALE=en
 ```
 
-This document describes the implemented PRE-preview surface. It is a review
-contract, not a launch declaration. The existing foundation baseline remains
-valid, and the new ZP-02A protected manual Preview has not yet been created.
+This document describes the reviewed public-shell surface. It is an approved
+implementation contract, not a launch declaration. The existing foundation
+baseline remains valid, and the protected manual Preview remains isolated from
+commercial production.
 
 ## Route contract
 
@@ -133,8 +134,8 @@ its repository remain separate and unchanged.
 
 ## Preview and approval gate
 
-The next external artifact is exactly one manual Preview for the ZP-02A commit,
-created only after local validation and Pull Request CI pass. It must remain:
+The reviewed external artifact is the protected manual Preview created after
+local validation and Pull Request CI passed. It remains:
 
 - a Preview target, never a new Production deployment;
 - protected by inherited Vercel Authentication with Standard Protection;
@@ -142,10 +143,18 @@ created only after local validation and Pull Request CI pass. It must remain:
 - free of environment variables and external providers;
 - disconnected from Git, so pushes cannot deploy automatically.
 
-Visual approval is pending. Review must cover the required mobile, tablet,
-landscape, and desktop viewports, both locales, navigation, typography,
-assets, copy, accessibility, reduced motion, and horizontal overflow.
+Rodrigo approved the refined Preview after reviewing the required mobile,
+tablet, landscape, and desktop viewports. The final H1 uses one common fluid
+scale for English and Spanish. Approval covers the shell, visual direction,
+responsive behavior, and refined hero; public copy remains provisional.
+
+Two inherited findings remain non-blocking: Vercel may select its own Node 24
+patch and emit an engine warning even though install, build, and audit pass;
+and the unsupported-locale route correctly returns a noindex 404 even though
+the raw server-rendered error document does not include a localized `html[lang]`.
+
+Products, catalog, commerce, portal, and administration remain outside ZP-02A.
 
 Final copy, product and commercial rules, provider selection, indexing,
-canonical URL, custom domain, merge, launch, and commercial production remain
-separate pending decisions.
+canonical URL, custom domain, launch, and commercial production remain separate
+pending decisions. No subsequent phase has started.
